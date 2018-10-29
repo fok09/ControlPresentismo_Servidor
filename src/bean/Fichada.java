@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Fichada {
 
-	Time horaEntrada;
-	Time horaSalida;
+	private Time horaEntrada;
+	private Time horaSalida;
 	
-	Empleado empleado;
+	private Empleado empleado;
 	
 	
 	public void getHoraEntrada()
