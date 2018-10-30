@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import bean.Cliente;
 import bean.Empleado;
+import bean.Factura;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
 import dto.*;
@@ -58,6 +59,14 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		//return personaFisica.getId();
 	}
 
+	@Override
+	public void crearFactura(FacturaDTO facturaDTO) throws RemoteException {
+		Factura factura = new Factura(
+				facturaDTO.getMonto(),
+				facturaDTO.getTipo(),
+				facturaDTO.getCliente()
+				);
+	}
 
 	@Override
 	public void eliminarCliente(String cuit_cuil) throws RemoteException {
@@ -84,23 +93,17 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		
 	}
 
-	@Override
-	public void crearFacturaMensual(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void crearFacturaSemanal(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void crearFacturaEventual(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void crearFacturaSemanal(FacturaDTO facturaDTO) throws RemoteException {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void crearFacturaEventual(FacturaDTO facturaDTO) throws RemoteException {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	@Override
 	public void registrarPago(int nroFactura) throws RemoteException {

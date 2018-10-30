@@ -1,6 +1,5 @@
 package remoteObjects;
 
-import controlador.ControladorPresentismo;
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.FacturaDTO;
@@ -11,22 +10,25 @@ import interfaces.SistemaPresentismo;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import controlador.ControladorPresentismo;
+
 public class ControladorPresentismoRO extends UnicastRemoteObject implements SistemaPresentismo {
 
+	private static final long serialVersionUID = 5692338657894292599L;
 
-    public ControladorPresentismoRO() throws RemoteException {
+	public ControladorPresentismoRO() throws RemoteException {
         super();
     }
 
 	@Override
 	public void crearClienteJuridico(PersonaJuridicaDTO personaJuridicaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
+		ControladorPresentismo.getInstance().crearClienteJuridico(personaJuridicaDTO);
 		
 	}
 
 	@Override
 	public void crearClienteFisico(PersonaFisicaDTO personaFisicaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
+		ControladorPresentismo.getInstance().crearClienteFisico(personaFisicaDTO);
 		
 	}
 
@@ -55,22 +57,11 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	}
 
 	@Override
-	public void crearFacturaMensual(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void crearFactura(FacturaDTO facturaDTO) throws RemoteException {
+		ControladorPresentismo.getInstance().crearFactura(facturaDTO);
 		
 	}
 
-	@Override
-	public void crearFacturaSemanal(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void crearFacturaEventual(FacturaDTO facturaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void registrarPago(int nroFactura) throws RemoteException {
