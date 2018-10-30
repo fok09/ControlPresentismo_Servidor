@@ -21,12 +21,11 @@ public class Server {
 	
     public void iniciar() {
     	try {
-    		LocateRegistry.createRegistry(1099);	
-//            TDASistemaCine sistemaCine = new SistemaCine();
-//            Naming.rebind ("//localhost/SistemaCine", sistemaCine);
-            System.out.println("Fijado en //localhost/SistemaCine");
-		} catch (Exception e) {
-			e.printStackTrace();
+//    		LocateRegistry.createRegistry(1099);	
+
+			//e.printStackTrace();
+		}finally {
+			
 		}
-    }
-}
+
+    }}
