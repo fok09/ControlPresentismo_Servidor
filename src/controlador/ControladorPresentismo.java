@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import bean.Cliente;
 import bean.Empleado;
 import bean.Factura;
+import bean.Fichada;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
 import dto.*;
@@ -90,8 +91,11 @@ public class ControladorPresentismo implements SistemaPresentismo {
 
 	@Override
 	public void altaFichada(FichadaDTO fichadaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		Fichada fichada = new Fichada(
+				fichadaDTO.getTipo(),
+				fichadaDTO.getEmpleado()
+				);
+		srv.FichadaSrv.grabarFichada(fichada);		
 	}
 
 //	@Override
