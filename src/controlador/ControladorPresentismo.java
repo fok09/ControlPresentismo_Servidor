@@ -2,16 +2,25 @@ package controlador;
 
 import java.rmi.RemoteException;
 import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Vector;
+
 import bean.Cliente;
 import bean.Empleado;
 import bean.Factura;
+import bean.Fichada;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
-import dto.*;
+import dto.ClienteDTO;
+import dto.EmpleadoDTO;
+import dto.FacturaDTO;
+import dto.FichadaDTO;
+import dto.PersonaFisicaDTO;
+import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
+import srv.ClienteSrv;
+import srv.FichadaSrv;
 
 public class ControladorPresentismo implements SistemaPresentismo {
 
@@ -130,4 +139,62 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		
 	}
 
+	@Override
+	public Vector<Vector<String>> getHorasTrabajadas(String cuit_cuil, Date fechaInicio, Date fechaFin) throws RemoteException {
+		Vector<Vector<String>> vent = new Vector<Vector<String>>();
+		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
+//		Contratacion contratacion = ContratacionSrv.get
+		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente);
+		List<Empleado> empleados = cliente.getEmpleados();
+		
+		LocalTime contE = LocalTime.of(0, 0);
+		LocalTime contS = LocalTime.of(0, 0);
+		
+		for (Empleado e : empleados)
+		{
+			Vector<String> strs = new Vector<String>();
+			
+			for(Fichada f: fichadas) {
+				if(f.getEmpleado().getId() == e.getId()) {		
+					if ((f.getFecha().compareTo(fechaInicio)<0) && (fechaFin.compareTo(f.getFecha()) < 0) 
+							|| (fechaInicio == f.getFecha()) || (f.getFecha() == fechaFin))  
+					{
+						if(f.getTipo().equals("E")) {
+							
+							contE.plusHours(f.getHora().getHours());
+							contE.plusMinutes(f.getHora().getMinutes());
+						}
+						else {
+							contS.plusHours(f.getHora().getHours());
+							contS.plusMinutes(f.getHora().getMinutes());
+						}
+							
+					}
+				}
+				
+//			Acá tenemos en contE y contS el total de horas de entrada y de salida para el empleado buscado
+				contS.minusHours(contE.getHour());
+				contS.minusMinutes(contE.getMinute());
+				
+				strs.add(String.valueOf(e.getLegajo()));
+				strs.add(String.valueOf(e.getApellido() + " " + e.getNombre()));
+				strs.add(String.valueOf(contS));
+				
+				
+				//				for(Venta v : vs)
+//				{
+//					Vector<String> strs = new Vector<String>();
+//					strs.add(String.valueOf(v.getNumero()));
+//					strs.add(v.getFecha());
+//					strs.add(String.valueOf(v.getTotal()));
+//					vent.add(strs);
+//				}	
+				
+			}
+		}
+		
+		return null;
+	}
+	
+	
 }
