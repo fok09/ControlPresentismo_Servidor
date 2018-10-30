@@ -2,12 +2,11 @@ package server;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
-
-//import tda.TDASistemaCine;
-//import app.*;
+import interfaces.SistemaPresentismo;
+import remoteObjects.ControladorPresentismoRO;
 
 public class Server {
-    
+	SistemaPresentismo objetoRemoto;
 //TDASistemaCine objetoRemoto;
 	
 	public static void main(String[] args)
@@ -21,10 +20,10 @@ public class Server {
 	
     public void iniciar() {
     	try {
-    		LocateRegistry.createRegistry(1099);	
-//            TDASistemaCine sistemaCine = new SistemaCine();
-//            Naming.rebind ("//localhost/SistemaCine", sistemaCine);
-            System.out.println("Fijado en //localhost/SistemaCine");
+    		LocateRegistry.createRegistry(1099);
+    		SistemaPresentismo controladorPresentismo = new ControladorPresentismoRO();
+    		Naming.rebind ("//localhost/ControladorPresentismo", controladorPresentismo);
+            System.out.println("Fijado en //localhost/ControladorPresentismo");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
