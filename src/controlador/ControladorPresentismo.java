@@ -66,6 +66,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				facturaDTO.getTipo(),
 				facturaDTO.getCliente()
 				);
+		srv.FacturaSrv.grabarFactura(factura);
 	}
 
 	@Override
@@ -120,7 +121,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
         		empleado.getTelefono(),
         		empleado.getFechaNac(),
         		empleado.getLegajo()
-        		
         );
     }
 
