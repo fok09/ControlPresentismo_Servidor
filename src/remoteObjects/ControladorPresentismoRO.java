@@ -9,6 +9,8 @@ import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
+import java.util.Vector;
 
 import controlador.ControladorPresentismo;
 
@@ -69,6 +71,13 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 		
 	}
 
+	@Override
+	public Vector<Vector<String>> getHorasTrabajadas(String cuit_cuil, Date fechaInicio, Date fechaFin) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 //    @Override
 //    public void crearArticulo(ArticuloDTO articuloDTO) throws RemoteException {
 //        ControladorArticulo.getInstance().crearArticulo(articuloDTO);
