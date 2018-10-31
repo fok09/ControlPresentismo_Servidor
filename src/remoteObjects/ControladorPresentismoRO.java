@@ -10,8 +10,10 @@ import interfaces.SistemaPresentismo;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
+import java.util.List;
 import java.util.Vector;
 
+import bean.Contratacion;
 import controlador.ControladorPresentismo;
 
 public class ControladorPresentismoRO extends UnicastRemoteObject implements SistemaPresentismo {
@@ -75,6 +77,11 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, java.util.Date fechaInicio, java.util.Date fechaFin) throws RemoteException {
 		
 		return ControladorPresentismo.getInstance().getHorasTrabajadasTotales(cuit_cuil, fechaInicio, fechaFin);
+	}
+
+	@Override
+	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
+		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
 	}
 
 	

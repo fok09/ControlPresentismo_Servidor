@@ -1,12 +1,14 @@
 package controlador;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
 
 import bean.Cliente;
+import bean.Contratacion;
 import bean.Empleado;
 import bean.Factura;
 import bean.Fichada;
@@ -20,6 +22,7 @@ import dto.PersonaFisicaDTO;
 import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
 import srv.ClienteSrv;
+import srv.ContratacionSrv;
 import srv.FichadaSrv;
 
 public class ControladorPresentismo implements SistemaPresentismo {
@@ -223,6 +226,21 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		}
 		
 		return vectorTabla;
+	}
+
+	@Override
+	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) {
+		List<Contratacion> todas = ContratacionSrv.getContrataciones();
+		Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
+		List<Contratacion> result = new ArrayList<Contratacion>();
+		
+		for (Contratacion c : todas) {
+			if (c.getCliente().getId()==cliente.getId()) {
+				result.add(c);
+			}
+		}
+				
+		return result;
 	}
 
 }
