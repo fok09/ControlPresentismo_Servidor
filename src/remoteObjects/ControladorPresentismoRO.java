@@ -49,9 +49,8 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	}
 
 	@Override
-	public void agregarEmpleado(EmpleadoDTO empleadoDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void agregarEmpleado(EmpleadoDTO empleadoDTO, String cuit_cuil) throws RemoteException {
+		ControladorPresentismo.getInstance().agregarEmpleado(empleadoDTO, cuit_cuil);
 	}
 
 	@Override

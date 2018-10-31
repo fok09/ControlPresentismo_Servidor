@@ -57,20 +57,37 @@ public class ControladorPresentismo implements SistemaPresentismo {
 
 	@Override
 	public void crearClienteFisico(PersonaFisicaDTO personaFisicaDTO) throws RemoteException {
-	PersonaFisica personaFisica = new PersonaFisica(
-				personaFisicaDTO.getCuit_cuil(),
-				personaFisicaDTO.getDomicilio(),
-				personaFisicaDTO.getTelefono(),
-				personaFisicaDTO.getMail(),
-				personaFisicaDTO.getHoraEntrada(),
-				personaFisicaDTO.getHoraSalida(),
-				personaFisicaDTO.getNombre(),
-				personaFisicaDTO.getApellido()
-				);
-		srv.ClienteSrv.grabarPersonaFisica(personaFisica);
-		//return personaFisica.getId();
+		PersonaFisica personaFisica = new PersonaFisica(
+					personaFisicaDTO.getCuit_cuil(),
+					personaFisicaDTO.getDomicilio(),
+					personaFisicaDTO.getTelefono(),
+					personaFisicaDTO.getMail(),
+					personaFisicaDTO.getHoraEntrada(),
+					personaFisicaDTO.getHoraSalida(),
+					personaFisicaDTO.getNombre(),
+					personaFisicaDTO.getApellido()
+					);
+			srv.ClienteSrv.grabarPersonaFisica(personaFisica);
+			//return personaFisica.getId();
 	}
 
+	@Override
+	public void agregarEmpleado(EmpleadoDTO empleadoDTO, String cuit_cuil) throws RemoteException {
+		// MovCCDAO.save(ClienteDAO.getById(dni), dtoToModel(movimientoCCDTO));
+		Empleado empleado = new Empleado(
+				empleadoDTO.getNombre(),
+				empleadoDTO.getApellido(),
+				empleadoDTO.getMail(),
+				empleadoDTO.getDni(),
+				empleadoDTO.getTelefono(),
+				empleadoDTO.getFechaNac(),
+				empleadoDTO.getLegajo()
+				);
+		Cliente cliente = srv.ClienteSrv.getClienteByCuit(cuit_cuil);
+		cliente.setEmpleado(empleado);
+		srv.ClienteSrv.grabarCliente(cliente);
+	}
+	
 	@Override
 	public void crearFactura(FacturaDTO facturaDTO) throws RemoteException {
 		Factura factura = new Factura(
@@ -94,11 +111,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
 //		
 //	}
 
-	@Override
-	public void agregarEmpleado(EmpleadoDTO empleadoDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void altaFichada(FichadaDTO fichadaDTO) throws RemoteException {
