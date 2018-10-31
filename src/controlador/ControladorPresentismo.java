@@ -192,9 +192,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, fechaInicio, fechaFin);
 		List<Empleado> empleados = cliente.getEmpleados();
 		
-		
-		LocalTime contE = LocalTime.of(0, 0);
-		LocalTime contS = LocalTime.of(0, 0);
 		int horasTotalesE = 0;
 		int minutosTotalesE = 0;
 		int horasTotalesS = 0;
