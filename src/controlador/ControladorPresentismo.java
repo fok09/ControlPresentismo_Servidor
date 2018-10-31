@@ -2,7 +2,7 @@ package controlador;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
@@ -90,6 +90,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			srv.ContratacionSrv.grabarContratacion(contratacion);
 			//return personaFisica.getId();
 	}
+	
 	@Override
 	public void agregarEmpleado(EmpleadoDTO empleadoDTO, String cuit_cuil) throws RemoteException {
 		// MovCCDAO.save(ClienteDAO.getById(dni), dtoToModel(movimientoCCDTO));
@@ -276,9 +277,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		List<Contratacion> todas = ContratacionSrv.getContrataciones();
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
 		List<Contratacion> result = new ArrayList<Contratacion>();
-		
-		
-		
+			
 		for (Contratacion c : todas) {
 			if (c.getCliente().getId()==cliente.getId()) {
 				result.add(c);

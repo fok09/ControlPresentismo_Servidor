@@ -1,20 +1,20 @@
 package remoteObjects;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+import java.util.Vector;
+
+import bean.Contratacion;
+import controlador.ControladorPresentismo;
 import dto.ClienteDTO;
+import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
 import dto.FacturaDTO;
 import dto.FichadaDTO;
 import dto.PersonaFisicaDTO;
 import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.sql.Date;
-import java.util.List;
-import java.util.Vector;
-
-import bean.Contratacion;
-import controlador.ControladorPresentismo;
 
 public class ControladorPresentismoRO extends UnicastRemoteObject implements SistemaPresentismo {
 
@@ -79,6 +79,12 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	@Override
 	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
 		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
+	}
+
+	@Override
+	public void crearContratacion(ContratacionDTO contratacionDTO) throws RemoteException {
+		ControladorPresentismo.getInstance().crearContratacion(contratacionDTO);
+		
 	}
 
 	
