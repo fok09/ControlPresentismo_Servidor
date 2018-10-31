@@ -158,10 +158,10 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	}
 
 	
-	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, Date fechaInicio, Date fechaFin) throws RemoteException {
+	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, Date fechaInicio, Date fechaFin, Contratacion c) throws RemoteException {
 		Vector<Vector<String>> vectorTabla = new Vector<Vector<String>>();
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
-		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente);
+		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, fechaInicio, fechaFin);
 		List<Empleado> empleados = cliente.getEmpleados();
 		
 		
@@ -173,6 +173,8 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		int minutosTotalesS = 0;
 		int horasResultado = 0;
 		int minutosResultado = 0;
+		int minutosAusentes = 0;
+		int horasAusentes = 0;
 		
 		for (Empleado e : empleados)
 		{
@@ -234,6 +236,14 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				strs.add(String.valueOf(e.getLegajo()));
 				strs.add(String.valueOf(e.getApellido() + " " + e.getNombre()));
 				strs.add(String.valueOf(horasResultado + ":" +minutosResultado));
+				
+				horasAusentes = c.getCantHoras() - horasResultado;
+				if (minutosResultado>0) {
+					minutosAusentes = 60 - minutosResultado;
+					horasAusentes -=1;
+				}
+				
+				strs.add(String.valueOf(horasAusentes + ":" +minutosAusentes));
 				vectorTabla.add(strs);
 		}
 		
@@ -245,6 +255,8 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		List<Contratacion> todas = ContratacionSrv.getContrataciones();
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
 		List<Contratacion> result = new ArrayList<Contratacion>();
+		
+		
 		
 		for (Contratacion c : todas) {
 			if (c.getCliente().getId()==cliente.getId()) {

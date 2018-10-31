@@ -73,9 +73,9 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	}
 
 	@Override
-	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, java.util.Date fechaInicio, java.util.Date fechaFin) throws RemoteException {
+	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, java.util.Date fechaInicio, java.util.Date fechaFin, Contratacion c) throws RemoteException {
 		
-		return ControladorPresentismo.getInstance().getHorasTrabajadasTotales(cuit_cuil, fechaInicio, fechaFin);
+		return ControladorPresentismo.getInstance().getHorasTrabajadasTotales(cuit_cuil, fechaInicio, fechaFin, c);
 	}
 
 	@Override
