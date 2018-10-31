@@ -63,6 +63,10 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 		ControladorPresentismo.getInstance().crearFactura(facturaDTO);
 		
 	}
+	
+	public void crearContratacion(ContratacionDTO contratacionDTO) throws RemoteException{
+		ControladorPresentismo.getInstance().crearContratacion(contratacionDTO);
+	}
 
 
 	@Override
