@@ -1,7 +1,7 @@
 package controlador;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
@@ -142,16 +142,22 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		
 	}
 
-	@Override
-	public Vector<Vector<String>> getHorasTrabajadas(String cuit_cuil, Date fechaInicio, Date fechaFin) throws RemoteException {
-		Vector<Vector<String>> vent = new Vector<Vector<String>>();
+	
+	public Vector<Vector<String>> getHorasTrabajadasTotales(String cuit_cuil, Date fechaInicio, Date fechaFin) throws RemoteException {
+		Vector<Vector<String>> vectorTabla = new Vector<Vector<String>>();
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
-//		Contratacion contratacion = ContratacionSrv.get
 		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente);
 		List<Empleado> empleados = cliente.getEmpleados();
 		
+		
 		LocalTime contE = LocalTime.of(0, 0);
 		LocalTime contS = LocalTime.of(0, 0);
+		int horasTotalesE = 0;
+		int minutosTotalesE = 0;
+		int horasTotalesS = 0;
+		int minutosTotalesS = 0;
+		int horasResultado = 0;
+		int minutosResultado = 0;
 		
 		for (Empleado e : empleados)
 		{
@@ -159,45 +165,64 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			
 			for(Fichada f: fichadas) {
 				if(f.getEmpleado().getId() == e.getId()) {		
-					if ((f.getFecha().compareTo(fechaInicio)<0) && (fechaFin.compareTo(f.getFecha()) < 0) 
-							|| (fechaInicio == f.getFecha()) || (f.getFecha() == fechaFin))  
-					{
+//					if ((f.getFecha().compareTo(fechaInicio)<0) && (fechaFin.compareTo(f.getFecha()) < 0) 
+//							|| (fechaInicio == f.getFecha()) || (f.getFecha() == fechaFin))  
+//					{
+					int horas = f.getHora().getHours();
+					int minutos = f.getHora().getMinutes();
+					
 						if(f.getTipo().equals("E")) {
 							
-							contE.plusHours(f.getHora().getHours());
-							contE.plusMinutes(f.getHora().getMinutes());
+//							contE.plusHours(horas);
+//							contE.plusMinutes(minutos);
+							horasTotalesE += horas;
+							minutosTotalesE += minutos;
 						}
 						else {
-							contS.plusHours(f.getHora().getHours());
-							contS.plusMinutes(f.getHora().getMinutes());
+//							contS.plusHours(horas);
+//							contS.plusMinutes(minutos);
+							horasTotalesS += horas;
+							minutosTotalesS += minutos;
 						}
 							
+//					}
+				}
+			}
+//			Acá tenemos en contE y contS el total de horas de entrada y de salida para el empleado buscado
+				horasResultado = horasTotalesS - horasTotalesE;
+				minutosResultado = minutosTotalesS - minutosTotalesE;
+				
+				if (minutosResultado>=60) {
+					horasResultado +=(minutosResultado/60);
+					minutosResultado = (minutosResultado%60);
+					
+				}else if (minutosResultado<0) {
+					if (minutosResultado<-60) {
+						horasResultado+=(minutosResultado/60);
+						minutosResultado = 60 + (minutosResultado%60);
+						horasResultado = horasResultado-1;
+						
+					}else if (minutosResultado==-60) {
+						horasResultado+=(minutosResultado/60);
+						minutosResultado = (minutosResultado%60);
+					}else {
+						horasResultado = horasResultado-1;
+						minutosResultado = 60 + minutosResultado;
+						
 					}
 				}
 				
-//			Acá tenemos en contE y contS el total de horas de entrada y de salida para el empleado buscado
-				contS.minusHours(contE.getHour());
-				contS.minusMinutes(contE.getMinute());
+				
+//				contS.minusHours(contE.getHour());
+//				contS.minusMinutes(contE.getMinute());
 				
 				strs.add(String.valueOf(e.getLegajo()));
 				strs.add(String.valueOf(e.getApellido() + " " + e.getNombre()));
-				strs.add(String.valueOf(contS));
-				
-				
-				//				for(Venta v : vs)
-//				{
-//					Vector<String> strs = new Vector<String>();
-//					strs.add(String.valueOf(v.getNumero()));
-//					strs.add(v.getFecha());
-//					strs.add(String.valueOf(v.getTotal()));
-//					vent.add(strs);
-//				}	
-				
-			}
+				strs.add(String.valueOf(horasResultado + ":" +minutosResultado));
+				vectorTabla.add(strs);
 		}
 		
-		return null;
+		return vectorTabla;
 	}
-	
-	
+
 }
