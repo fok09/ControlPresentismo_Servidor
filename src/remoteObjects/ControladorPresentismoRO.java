@@ -1,6 +1,7 @@
 package remoteObjects;
 
 import dto.ClienteDTO;
+import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
 import dto.FacturaDTO;
 import dto.FichadaDTO;
@@ -62,6 +63,10 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	public void crearFactura(FacturaDTO facturaDTO) throws RemoteException {
 		ControladorPresentismo.getInstance().crearFactura(facturaDTO);
 		
+	}
+	
+	public void crearContratacion(ContratacionDTO contratacionDTO) throws RemoteException{
+		ControladorPresentismo.getInstance().crearContratacion(contratacionDTO);
 	}
 
 
