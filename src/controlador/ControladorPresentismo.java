@@ -2,7 +2,7 @@ package controlador;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
@@ -14,7 +14,9 @@ import bean.Factura;
 import bean.Fichada;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
+import bean.Servicio;
 import dto.ClienteDTO;
+import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
 import dto.FacturaDTO;
 import dto.FichadaDTO;
@@ -71,6 +73,24 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			//return personaFisica.getId();
 	}
 
+	public void crearContratacion(ContratacionDTO contratacionDTO) throws RemoteException {
+
+		float montoFinal = contratacionDTO.getServicio().getMonto()+contratacionDTO.getCantEmpleados()*contratacionDTO.getServicio().getAdicionalEmpleado();
+		
+		Contratacion contratacion = new Contratacion(
+					contratacionDTO.getServicio(),
+					contratacionDTO.getCliente(),
+					contratacionDTO.getCantHoras(),
+					contratacionDTO.getCantEmpleados(),
+					contratacionDTO.getFechaInicial(),
+					contratacionDTO.getFechaFinal(),
+					contratacionDTO.getTipoFactura(),
+					montoFinal
+					);
+//			crearFactura(montoFinal, contratacionDTO.getTipoFactura(),contratacionDTO.getCliente().getCuit_cuil());
+			srv.ContratacionSrv.grabarContratacion(contratacion);
+			//return personaFisica.getId();
+	}
 	@Override
 	public void agregarEmpleado(EmpleadoDTO empleadoDTO, String cuit_cuil) throws RemoteException {
 		// MovCCDAO.save(ClienteDAO.getById(dni), dtoToModel(movimientoCCDTO));
