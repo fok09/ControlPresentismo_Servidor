@@ -24,6 +24,7 @@ import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
 import srv.ClienteSrv;
 import srv.ContratacionSrv;
+import srv.FacturaSrv;
 import srv.FichadaSrv;
 
 public class ControladorPresentismo implements SistemaPresentismo {
@@ -86,8 +87,13 @@ public class ControladorPresentismo implements SistemaPresentismo {
 					contratacionDTO.getTipoFactura(),
 					montoFinal
 					);
-//			crearFactura(montoFinal, contratacionDTO.getTipoFactura(),contratacionDTO.getCliente().getCuit_cuil());
-			srv.ContratacionSrv.grabarContratacion(contratacion);
+		
+		
+		int ultimo = srv.ContratacionSrv.grabarContratacion(contratacion);
+		Contratacion aux = srv.ContratacionSrv.getById(ultimo);
+		
+		FacturaDTO fDTO = new FacturaDTO (montoFinal, contratacionDTO.getTipoFactura(),contratacionDTO.getCliente(), aux);
+		crearFactura(fDTO);
 			//return personaFisica.getId();
 	}
 	
@@ -110,11 +116,10 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	
 	@Override
 	public void crearFactura(FacturaDTO facturaDTO) throws RemoteException {
-		Factura factura = new Factura(
-				facturaDTO.getMonto(),
+		Factura factura = new Factura(facturaDTO.getMonto(),
 				facturaDTO.getTipo(),
-				facturaDTO.getCliente()
-				);
+				facturaDTO.getCliente(),
+				facturaDTO.getContratacion());
 		srv.FacturaSrv.grabarFactura(factura);
 	}
 
@@ -158,7 +163,8 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	@Override
 	public void registrarPago(int nroFactura) throws RemoteException {
 		Factura factura = srv.FacturaSrv.getFacturaByNro(nroFactura);
-		factura.setPagado(true);		
+		factura.setPagado(true);
+		srv.FacturaSrv.grabarFactura(factura);
 	}
 	
 	private Empleado dtoToEmpleado(EmpleadoDTO empleado){
