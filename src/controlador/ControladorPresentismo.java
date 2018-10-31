@@ -136,8 +136,8 @@ public class ControladorPresentismo implements SistemaPresentismo {
 
 	@Override
 	public void registrarPago(int nroFactura) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		Factura factura = srv.FacturaSrv.getFacturaByNro(nroFactura);
+		factura.setPagado(true);		
 	}
 	
 	private Empleado dtoToEmpleado(EmpleadoDTO empleado){

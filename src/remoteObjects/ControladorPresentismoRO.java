@@ -67,8 +67,7 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 
 	@Override
 	public void registrarPago(int nroFactura) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		ControladorPresentismo.getInstance().registrarPago(nroFactura);		
 	}
 
 	@Override
