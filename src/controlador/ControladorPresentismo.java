@@ -6,7 +6,6 @@ import java.util.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
-
 import bean.Cliente;
 import bean.Contratacion;
 import bean.Empleado;
@@ -116,7 +115,9 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	public void altaFichada(FichadaDTO fichadaDTO) throws RemoteException {
 		Fichada fichada = new Fichada(
 				fichadaDTO.getTipo(),
-				fichadaDTO.getEmpleado()
+				fichadaDTO.getEmpleado(),
+				fichadaDTO.getHora(),
+				fichadaDTO.getFecha()
 				);
 		srv.FichadaSrv.grabarFichada(fichada);		
 	}
@@ -183,8 +184,8 @@ public class ControladorPresentismo implements SistemaPresentismo {
 //					if ((f.getFecha().compareTo(fechaInicio)<0) && (fechaFin.compareTo(f.getFecha()) < 0) 
 //							|| (fechaInicio == f.getFecha()) || (f.getFecha() == fechaFin))  
 //					{
-					int horas = f.getHora().getHours();
-					int minutos = f.getHora().getMinutes();
+					int horas = f.getHora().getHour();
+					int minutos = f.getHora().getMinute();
 					
 						if(f.getTipo().equals("E")) {
 							

@@ -55,8 +55,7 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 
 	@Override
 	public void altaFichada(FichadaDTO fichadaDTO) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		ControladorPresentismo.getInstance().altaFichada(fichadaDTO);
 	}
 
 	@Override
