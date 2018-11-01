@@ -275,9 +275,9 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	}
 
 	@Override
-	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) {
+	public List<Contratacion> getContratacionesCliente(Cliente cliente) {
 		List<Contratacion> todas = ContratacionSrv.getContrataciones();
-		Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
+		//Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
 		List<Contratacion> result = new ArrayList<Contratacion>();
 
 		for (Contratacion c : todas) {
@@ -287,6 +287,19 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		}
 
 		return result;
+	}
+
+	@Override
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -2,14 +2,17 @@ package remoteObjects;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import bean.Cliente;
 import bean.Contratacion;
 import controlador.ControladorPresentismo;
 import dto.ClienteDTO;
 import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
+import dto.EmpleadoHorasDTO;
 import dto.FacturaDTO;
 import dto.FichadaDTO;
 import dto.PersonaFisicaDTO;
@@ -79,9 +82,32 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 		return ControladorPresentismo.getInstance().getHorasTrabajadasTotales(cuit_cuil, fechaInicio, fechaFin, c);
 	}
 
+//	@Override
+//	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
+//		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
+//	}
+//	
+//	@Override
+//	public Vector<String> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
+//		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
+//	}
+
 	@Override
-	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
-		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Contratacion> getContratacionesCliente(Cliente cliente) throws RemoteException {
+		return ControladorPresentismo.getInstance().getContratacionesCliente(cliente);
 	}
 
 }
