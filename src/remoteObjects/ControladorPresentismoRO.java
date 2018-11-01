@@ -2,6 +2,7 @@ package remoteObjects;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -10,6 +11,7 @@ import controlador.ControladorPresentismo;
 import dto.ClienteDTO;
 import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
+import dto.EmpleadoHorasDTO;
 import dto.FacturaDTO;
 import dto.FichadaDTO;
 import dto.PersonaFisicaDTO;
@@ -82,6 +84,17 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	@Override
 	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) throws RemoteException  {
 		return ControladorPresentismo.getInstance().getContratacionesCliente(cuitEmpresa);
+	}
+
+	@Override
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin) {
+		return ControladorPresentismo.getInstance().getHorasTrabajadasTotalesLiqui(cuit, cFechaInicio, cFechaFin);
+	}
+
+	@Override
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) {
+		ControladorPresentismo.getInstance().enviarHorasTotales(empleados, liqui);
+		
 	}
 
 }

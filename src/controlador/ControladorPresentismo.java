@@ -224,8 +224,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		return vectorTabla;
 	}
 
-	public void getHorasTrabajadasTotalesLiqui(String cuit_cuil, Date fechaInicio, Date fechaFin, boolean liquidacion)
-			throws RemoteException {
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit_cuil, Date fechaInicio, Date fechaFin) {
 
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
 		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, fechaInicio, fechaFin);
@@ -262,18 +261,12 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			
 			eDto.setHorasTrabajadas(horasResultado);
 			eDto.setHorasAusentes(horasAusentes);
-			
-			if (liquidacion) {
-				PostLiquidacion.postLiquidacionSueldos(eDto);
-			}else {
-				PostLiquidacion.postGym(eDto);
-			}
-			
-			
+			empleadosHoras.add(eDto);		
 		}
-
+		return empleadosHoras;
 	}
 
+		
 	@Override
 	public List<Contratacion> getContratacionesCliente(String cuitEmpresa) {
 		List<Contratacion> todas = ContratacionSrv.getContrataciones();
@@ -287,6 +280,18 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) {
+		for (EmpleadoHorasDTO e : empleados) {
+			if (liqui) {
+				PostLiquidacion.postLiquidacionSueldos(e);
+			}else {
+				PostLiquidacion.postGym(e);
+			}
+		}
+		
 	}
 
 }
