@@ -3,7 +3,6 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
 import bean.Cliente;
@@ -13,7 +12,6 @@ import bean.Factura;
 import bean.Fichada;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
-import bean.Servicio;
 import dto.ClienteDTO;
 import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
@@ -24,7 +22,6 @@ import dto.PersonaJuridicaDTO;
 import interfaces.SistemaPresentismo;
 import srv.ClienteSrv;
 import srv.ContratacionSrv;
-import srv.FacturaSrv;
 import srv.FichadaSrv;
 
 public class ControladorPresentismo implements SistemaPresentismo {
@@ -148,6 +145,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	public void registrarPago(FacturaDTO facturaDTO) throws RemoteException {
 		Factura factura = srv.FacturaSrv.getFacturaByNro(facturaDTO.getNroFactura());
 		factura.setPagado(true);
+		factura.setFechaPago(facturaDTO.getFechaPago());
 		srv.FacturaSrv.grabarFactura(factura);
 	}
 	
