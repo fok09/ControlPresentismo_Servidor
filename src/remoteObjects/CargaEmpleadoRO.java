@@ -28,8 +28,8 @@ public class CargaEmpleadoRO extends UnicastRemoteObject implements CargaEmplead
 
 	@Override
 	public void cargaEmpleado(String CUITEmpresa, String legajo, String nombre, String apellido, String mail,
-			String dni, String telefono) throws RemoteException {
-		EmpleadoDTO empleadoDto = new EmpleadoDTO(nombre,apellido,mail,dni,telefono, new Date(1,1,2018),legajo);
+			String dni, String telefono, String tipo, int cantHorasMensual) throws RemoteException {
+		EmpleadoDTO empleadoDto = new EmpleadoDTO(nombre,apellido,mail,dni,telefono, new Date(1,1,2018),legajo, tipo, cantHorasMensual);
 		ControladorPresentismo.getInstance().agregarEmpleado(empleadoDto, CUITEmpresa);
 		
 	}

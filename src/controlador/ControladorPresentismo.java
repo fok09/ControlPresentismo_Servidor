@@ -107,8 +107,11 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				empleadoDTO.getDni(),
 				empleadoDTO.getTelefono(),
 				empleadoDTO.getFechaNac(),
-				empleadoDTO.getLegajo()
+				empleadoDTO.getLegajo(),
+				empleadoDTO.getTipo(),
+				empleadoDTO.getHorasMensuales()
 				);
+		
 		Cliente cliente = srv.ClienteSrv.getClienteByCuit(cuit_cuil);
 		cliente.setEmpleado(empleado);
 		srv.ClienteSrv.grabarCliente(cliente);
@@ -175,7 +178,9 @@ public class ControladorPresentismo implements SistemaPresentismo {
         		empleado.getDni(),
         		empleado.getTelefono(),
         		empleado.getFechaNac(),
-        		empleado.getLegajo()
+        		empleado.getLegajo(),
+        		empleado.getTipo(),
+        		empleado.getHorasMensuales()
         );
     }
 
