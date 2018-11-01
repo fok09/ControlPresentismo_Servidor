@@ -110,4 +110,15 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 		return ControladorPresentismo.getInstance().getContratacionesCliente(cliente);
 	}
 
+	@Override
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin) {
+		return ControladorPresentismo.getInstance().getHorasTrabajadasTotalesLiqui(cuit, cFechaInicio, cFechaFin);
+	}
+
+	@Override
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) {
+		ControladorPresentismo.getInstance().enviarHorasTotales(empleados, liqui);
+		
+	}
+
 }
