@@ -109,8 +109,11 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				empleadoDTO.getDni(),
 				empleadoDTO.getTelefono(),
 				empleadoDTO.getFechaNac(),
-				empleadoDTO.getLegajo()
+				empleadoDTO.getLegajo(),
+				empleadoDTO.getTipo(),
+				empleadoDTO.getHorasMensuales()
 				);
+		
 		Cliente cliente = srv.ClienteSrv.getClienteByCuit(cuit_cuil);
 		cliente.setEmpleado(empleado);
 		srv.ClienteSrv.grabarCliente(cliente);
@@ -131,13 +134,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		
 	}
 
-//	@Override
-//	public void modificarCliente(String cuit_cuil, String domicilio, String telefono, String mail, Time horaEntrada,
-//			Time horaSalida) throws RemoteException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 
 	@Override
 	public void altaFichada(FichadaDTO fichadaDTO) throws RemoteException {
@@ -149,22 +145,10 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				);
 		srv.FichadaSrv.grabarFichada(fichada);		
 	}
-
-//	@Override
-//	public void crearFacturaSemanal(FacturaDTO facturaDTO) throws RemoteException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void crearFacturaEventual(FacturaDTO facturaDTO) throws RemoteException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
+	
 	@Override
-	public void registrarPago(int nroFactura) throws RemoteException {
-		Factura factura = srv.FacturaSrv.getFacturaByNro(nroFactura);
+	public void registrarPago(FacturaDTO facturaDTO) throws RemoteException {
+		Factura factura = srv.FacturaSrv.getFacturaByNro(facturaDTO.getNroFactura());
 		factura.setPagado(true);
 		srv.FacturaSrv.grabarFactura(factura);
 	}
@@ -177,7 +161,9 @@ public class ControladorPresentismo implements SistemaPresentismo {
         		empleado.getDni(),
         		empleado.getTelefono(),
         		empleado.getFechaNac(),
-        		empleado.getLegajo()
+        		empleado.getLegajo(),
+        		empleado.getTipo(),
+        		empleado.getHorasMensuales()
         );
     }
 
@@ -209,27 +195,21 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			
 			for(Fichada f: fichadas) {
 				if(f.getEmpleado().getId() == e.getId()) {		
-//					if ((f.getFecha().compareTo(fechaInicio)<0) && (fechaFin.compareTo(f.getFecha()) < 0) 
-//							|| (fechaInicio == f.getFecha()) || (f.getFecha() == fechaFin))  
-//					{
+
 					int horas = f.getHora().getHour();
 					int minutos = f.getHora().getMinute();
 					
 						if(f.getTipo().equals("E")) {
 							
-//							contE.plusHours(horas);
-//							contE.plusMinutes(minutos);
 							horasTotalesE += horas;
 							minutosTotalesE += minutos;
 						}
 						else {
-//							contS.plusHours(horas);
-//							contS.plusMinutes(minutos);
 							horasTotalesS += horas;
 							minutosTotalesS += minutos;
 						}
 							
-//					}
+
 				}
 			}
 //			Acá tenemos en contE y contS el total de horas de entrada y de salida para el empleado buscado
@@ -255,10 +235,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
 						
 					}
 				}
-				
-				
-//				contS.minusHours(contE.getHour());
-//				contS.minusMinutes(contE.getMinute());
 				
 				strs.add(String.valueOf(e.getLegajo()));
 				strs.add(String.valueOf(e.getApellido() + " " + e.getNombre()));
