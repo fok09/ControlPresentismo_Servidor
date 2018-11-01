@@ -93,19 +93,6 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 //	}
 
 	@Override
-	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<Contratacion> getContratacionesCliente(Cliente cliente) throws RemoteException {
 		return ControladorPresentismo.getInstance().getContratacionesCliente(cliente);
 	}
@@ -116,7 +103,7 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	}
 
 	@Override
-	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) {
+	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
 		ControladorPresentismo.getInstance().enviarHorasTotales(empleados, liqui);
 		
 	}

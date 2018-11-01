@@ -283,27 +283,14 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit, Date cFechaInicio, Date cFechaFin)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
-		// TODO Auto-generated method stub
-=======
-	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) {
 		for (EmpleadoHorasDTO e : empleados) {
 			if (liqui) {
 				PostLiquidacion.postLiquidacionSueldos(e);
 			}else {
 				PostLiquidacion.postGym(e);
 			}
-		}
->>>>>>> refs/remotes/origin/master
-		
+		}		
 	}
 
 }
