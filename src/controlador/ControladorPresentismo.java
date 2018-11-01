@@ -44,22 +44,38 @@ public class ControladorPresentismo implements SistemaPresentismo {
 
 	@Override
 	public void crearClienteJuridico(PersonaJuridicaDTO personaJuridicaDTO) throws RemoteException {
-		PersonaJuridica personaJuridica = new PersonaJuridica(personaJuridicaDTO.getCuit_cuil(),
-				personaJuridicaDTO.getDomicilio(), personaJuridicaDTO.getTelefono(), personaJuridicaDTO.getMail(),
-				personaJuridicaDTO.getHoraEntrada(), personaJuridicaDTO.getHoraSalida(),
-				personaJuridicaDTO.getRazonSocial());
+
+		PersonaJuridica personaJuridica = new PersonaJuridica(
+				personaJuridicaDTO.getCuit_cuil(),
+				personaJuridicaDTO.getCbu(),
+				personaJuridicaDTO.getDomicilio(),
+				personaJuridicaDTO.getTelefono(),
+				personaJuridicaDTO.getMail(),
+				personaJuridicaDTO.getHoraEntrada(),
+				personaJuridicaDTO.getHoraSalida(),
+				personaJuridicaDTO.getRazonSocial()
+				);
 		srv.ClienteSrv.grabarPersonaJuridica(personaJuridica);
 		// return personaJuridica.getId();
 	}
 
 	@Override
 	public void crearClienteFisico(PersonaFisicaDTO personaFisicaDTO) throws RemoteException {
-		PersonaFisica personaFisica = new PersonaFisica(personaFisicaDTO.getCuit_cuil(),
-				personaFisicaDTO.getDomicilio(), personaFisicaDTO.getTelefono(), personaFisicaDTO.getMail(),
-				personaFisicaDTO.getHoraEntrada(), personaFisicaDTO.getHoraSalida(), personaFisicaDTO.getNombre(),
-				personaFisicaDTO.getApellido());
-		srv.ClienteSrv.grabarPersonaFisica(personaFisica);
-		// return personaFisica.getId();
+
+		PersonaFisica personaFisica = new PersonaFisica(
+					personaFisicaDTO.getCuit_cuil(),
+					personaFisicaDTO.getCbu(),
+					personaFisicaDTO.getDomicilio(),
+					personaFisicaDTO.getTelefono(),
+					personaFisicaDTO.getMail(),
+					personaFisicaDTO.getHoraEntrada(),
+					personaFisicaDTO.getHoraSalida(),
+					personaFisicaDTO.getNombre(),
+					personaFisicaDTO.getApellido()
+					);
+			srv.ClienteSrv.grabarPersonaFisica(personaFisica);
+			//return personaFisica.getId();
+
 	}
 
 	public void crearContratacion(ContratacionDTO contratacionDTO) throws RemoteException {
@@ -116,6 +132,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	public void registrarPago(FacturaDTO facturaDTO) throws RemoteException {
 		Factura factura = srv.FacturaSrv.getFacturaByNro(facturaDTO.getNroFactura());
 		factura.setPagado(true);
+		factura.setFechaPago(facturaDTO.getFechaPago());
 		srv.FacturaSrv.grabarFactura(factura);
 	}
 
