@@ -46,6 +46,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	public void crearClienteJuridico(PersonaJuridicaDTO personaJuridicaDTO) throws RemoteException {
 		PersonaJuridica personaJuridica = new PersonaJuridica(
 				personaJuridicaDTO.getCuit_cuil(),
+				personaJuridicaDTO.getCbu(),
 				personaJuridicaDTO.getDomicilio(),
 				personaJuridicaDTO.getTelefono(),
 				personaJuridicaDTO.getMail(),
@@ -61,6 +62,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	public void crearClienteFisico(PersonaFisicaDTO personaFisicaDTO) throws RemoteException {
 		PersonaFisica personaFisica = new PersonaFisica(
 					personaFisicaDTO.getCuit_cuil(),
+					personaFisicaDTO.getCbu(),
 					personaFisicaDTO.getDomicilio(),
 					personaFisicaDTO.getTelefono(),
 					personaFisicaDTO.getMail(),
