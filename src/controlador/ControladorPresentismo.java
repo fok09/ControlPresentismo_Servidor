@@ -25,6 +25,7 @@ import integracion.PostLiquidacion;
 import interfaces.SistemaPresentismo;
 import srv.ClienteSrv;
 import srv.ContratacionSrv;
+import srv.FacturaSrv;
 import srv.FichadaSrv;
 
 public class ControladorPresentismo implements SistemaPresentismo {
@@ -270,7 +271,6 @@ public class ControladorPresentismo implements SistemaPresentismo {
 	@Override
 	public List<Contratacion> getContratacionesCliente(Cliente cliente) {
 		List<Contratacion> todas = ContratacionSrv.getContrataciones();
-		//Cliente cliente = ClienteSrv.getClienteByCuit(cuitEmpresa);
 		List<Contratacion> result = new ArrayList<Contratacion>();
 
 		for (Contratacion c : todas) {
@@ -278,7 +278,19 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				result.add(c);
 			}
 		}
+		return result;
+	}
+	
+	@Override
+	public List<Factura> getFacturasCliente(Cliente cliente) {
+		List<Factura> todas = FacturaSrv.getFacturas();
+		List<Factura> result = new ArrayList<Factura>();
 
+		for (Factura f : todas) {
+			if (f.getCliente().getId() == cliente.getId()) {
+				result.add(f);
+			}
+		}
 		return result;
 	}
 

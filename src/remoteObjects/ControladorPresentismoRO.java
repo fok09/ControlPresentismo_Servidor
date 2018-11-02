@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import bean.Cliente;
 import bean.Contratacion;
+import bean.Factura;
 import controlador.ControladorPresentismo;
 import dto.ClienteDTO;
 import dto.ContratacionDTO;
@@ -106,6 +107,11 @@ public class ControladorPresentismoRO extends UnicastRemoteObject implements Sis
 	public void enviarHorasTotales(List<EmpleadoHorasDTO> empleados, boolean liqui) throws RemoteException {
 		ControladorPresentismo.getInstance().enviarHorasTotales(empleados, liqui);
 		
+	}
+
+	@Override
+	public List<Factura> getFacturasCliente(Cliente cliente) throws RemoteException {
+		return ControladorPresentismo.getInstance().getFacturasCliente(cliente);
 	}
 
 }
