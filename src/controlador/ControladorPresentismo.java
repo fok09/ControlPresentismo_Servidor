@@ -227,15 +227,15 @@ public class ControladorPresentismo implements SistemaPresentismo {
 		return vectorTabla;
 	}
 
-	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(String cuit_cuil, Date fechaInicio, Date fechaFin) {
+	public List<EmpleadoHorasDTO> getHorasTrabajadasTotalesLiqui(Cliente cliente, Date fechaInicio, Date fechaFin) {
 
-		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
+//		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
 		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, fechaInicio, fechaFin);
 		List<Empleado> empleados = cliente.getEmpleados();
 		List<EmpleadoHorasDTO> empleadosHoras = new ArrayList<EmpleadoHorasDTO>();
 
 		for (Empleado e : empleados) {
-			EmpleadoHorasDTO eDto = new EmpleadoHorasDTO(e, cuit_cuil);
+			EmpleadoHorasDTO eDto = new EmpleadoHorasDTO(e, cliente.getCuit_cuil());
 			int minutosTotalesE = 0;
 			int minutosTotalesS = 0;
 			int horasResultado = 0;
