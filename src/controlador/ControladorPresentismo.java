@@ -153,7 +153,7 @@ public class ControladorPresentismo implements SistemaPresentismo {
 			Contratacion c) throws RemoteException {
 		Vector<Vector<String>> vectorTabla = new Vector<Vector<String>>();
 		Cliente cliente = ClienteSrv.getClienteByCuit(cuit_cuil);
-		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, fechaInicio, fechaFin);
+		List<Fichada> fichadas = FichadaSrv.getFichadasByCliente(cliente, c.getFechaInicial(), c.getFechaFinal());
 		List<Empleado> empleados = cliente.getEmpleados();
 
 		int horasTotalesE = 0;
