@@ -13,6 +13,7 @@ import bean.Factura;
 import bean.Fichada;
 import bean.PersonaFisica;
 import bean.PersonaJuridica;
+import dao.ClienteDAO;
 import dto.ClienteDTO;
 import dto.ContratacionDTO;
 import dto.EmpleadoDTO;
@@ -291,6 +292,11 @@ public class ControladorPresentismo implements SistemaPresentismo {
 				PostLiquidacion.postGym(e);
 			}
 		}		
+	}
+	
+	public void eliminarCliente(Cliente c) {
+		
+		ClienteDAO.getInstancia().eliminarCliente(c);
 	}
 
 }
